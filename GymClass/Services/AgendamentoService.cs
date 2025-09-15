@@ -1,6 +1,7 @@
 ﻿using GymClass.DTOs;
 using GymClass.Models;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace GymClass.Services
 {
@@ -33,6 +34,9 @@ namespace GymClass.Services
 
         public async Task<Aula> CreateAulaAsync(AulaCreateDto aulaDto)
         {
+            if (!Validator.TryValidateObject(aulaDto, new ValidationContext(aulaDto), null))
+                throw new ArgumentException("Dados da aula inválidos");
+
             var aula = new Aula
             {
                 TipoAula = aulaDto.TipoAula,
@@ -62,7 +66,7 @@ namespace GymClass.Services
             if (!aula.TemVagasDisponiveis())
                 throw new InvalidOperationException("Não há vagas disponíveis para esta aula");
 
-            var agendamentosMes = await GetAgendamentosAlunoNoMes(aluno.Id);
+            var agendamentosMes = await GetAgendamentosAlunoNoMes(aluno.Id, DateTime.UtcNow);
             var limite = GetLimiteAulasPorPlano(aluno.TipoPlano);
 
             if (agendamentosMes.Count >= limite)
@@ -114,7 +118,7 @@ namespace GymClass.Services
             if (aluno == null || !aluno.Ativo)
                 throw new InvalidOperationException("Aluno não encontrado ou inativo");
 
-            var agendamentosMes = await GetAgendamentosAlunoNoMes(alunoId);
+            var agendamentosMes = await GetAgendamentosAlunoNoMes(alunoId, DateTime.UtcNow);
 
             var frequenciaPorTipo = agendamentosMes
                 .GroupBy(a => a.Aula.TipoAula)
@@ -156,18 +160,20 @@ namespace GymClass.Services
             return true;
         }
 
-        private async Task<List<Agendamento>> GetAgendamentosAlunoNoMes(int alunoId)
+        private async Task<List<Agendamento>> GetAgendamentosAlunoNoMes(int alunoId, DateTime? dataReferenciaUtc = null)
         {
-            var now = DateTime.Now;
-            var firstDayOfMonth = new DateTime(now.Year, now.Month, 1);
-            var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+            var dataUtc = dataReferenciaUtc ?? DateTime.UtcNow;
+
+            var primeiroDiaMesUtc = new DateTime(dataUtc.Year, dataUtc.Month, 1, 0, 0, 0, DateTimeKind.Utc);
+ 
+            var primeiroDiaProximoMesUtc = primeiroDiaMesUtc.AddMonths(1);
 
             return await _context.Agendamentos
-                .Include(a => a.Aula)
                 .Where(a => a.AlunoId == alunoId &&
                            a.Ativo &&
-                           a.DataAgendamento >= firstDayOfMonth &&
-                           a.DataAgendamento <= lastDayOfMonth)
+                           a.DataAgendamento >= primeiroDiaMesUtc &&
+                           a.DataAgendamento < primeiroDiaProximoMesUtc)
+                .AsNoTracking()
                 .ToListAsync();
         }
 

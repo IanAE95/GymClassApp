@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using GymClass.Validations;
 
 namespace GymClass.DTOs
 {
@@ -14,7 +15,7 @@ namespace GymClass.DTOs
         public DateTime DataHora { get; set; }
 
         [Required]
-        [Range(1, 100)]
+        [Range(1, int.MaxValue)]
         public int CapacidadeMaxima { get; set; }
 
         public int VagasOcupadas { get; set; }
@@ -25,15 +26,16 @@ namespace GymClass.DTOs
 
     public class AulaCreateDto
     {
-        [Required]
+        [Required(ErrorMessage = "Tipo da aula é obrigatório")]
         [StringLength(50)]
         public string TipoAula { get; set; } = string.Empty;
 
-        [Required]
+        [Required(ErrorMessage = "Data/hora é obrigatória")]
+        [FutureDate(MinutesOffset = 5, ErrorMessage = "Data/hora deve ser futura")]
         public DateTime DataHora { get; set; }
 
-        [Required]
-        [Range(1, 100)]
+        [Required(ErrorMessage = "Capacidade é obrigatória")]
+        [Range(1, int.MaxValue, ErrorMessage = "Capacidade deve ser maior que 0")]
         public int CapacidadeMaxima { get; set; }
     }
 }
