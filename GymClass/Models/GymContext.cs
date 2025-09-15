@@ -52,19 +52,6 @@ namespace GymClass.Models
                       .HasForeignKey(a => a.AulaId)
                       .OnDelete(DeleteBehavior.Restrict);
             });
-
-            modelBuilder.Entity<Aluno>().HasData(
-                new Aluno { Id = 1, Nome = "João Silva", TipoPlano = PlanoType.Mensal, DataCriacao = DateTime.UtcNow, Ativo = true },
-                new Aluno { Id = 2, Nome = "Maria Santos", TipoPlano = PlanoType.Trimestral, DataCriacao = DateTime.UtcNow, Ativo = true },
-                new Aluno { Id = 3, Nome = "Pedro Costa", TipoPlano = PlanoType.Anual, DataCriacao = DateTime.UtcNow, Ativo = true }
-            );
-
-            modelBuilder.Entity<Aula>().HasData(
-                new Aula { Id = 1, TipoAula = "Cross", DataHora = DateTime.Today.AddDays(1).AddHours(10), CapacidadeMaxima = 20, VagasOcupadas = 0, Ativa = true, DataCriacao = DateTime.UtcNow },
-                new Aula { Id = 2, TipoAula = "Funcional", DataHora = DateTime.Today.AddDays(1).AddHours(18), CapacidadeMaxima = 15, VagasOcupadas = 0, Ativa = true, DataCriacao = DateTime.UtcNow },
-                new Aula { Id = 3, TipoAula = "Pilates", DataHora = DateTime.Today.AddDays(2).AddHours(9), CapacidadeMaxima = 10, VagasOcupadas = 0, Ativa = true, DataCriacao = DateTime.UtcNow },
-                new Aula { Id = 4, TipoAula = "Cross", DataHora = DateTime.Today.AddDays(3).AddHours(11), CapacidadeMaxima = 20, VagasOcupadas = 0, Ativa = true, DataCriacao = DateTime.UtcNow }
-            );
         }
     }
 }

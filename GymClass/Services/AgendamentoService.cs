@@ -121,7 +121,8 @@ namespace GymClass.Services
             var agendamentosMes = await GetAgendamentosAlunoNoMes(alunoId, DateTime.UtcNow);
 
             var frequenciaPorTipo = agendamentosMes
-                .GroupBy(a => a.Aula.TipoAula)
+                .GroupBy(a => a.Aula?.TipoAula ?? "Aula não encontrada")
+                .Where(g => g.Key != "Aula não encontrada")
                 .Select(g => new TipoAulaFrequencia
                 {
                     TipoAula = g.Key,
@@ -168,7 +169,7 @@ namespace GymClass.Services
  
             var primeiroDiaProximoMesUtc = primeiroDiaMesUtc.AddMonths(1);
 
-            return await _context.Agendamentos
+            return await _context.Agendamentos  
                 .Where(a => a.AlunoId == alunoId &&
                            a.Ativo &&
                            a.DataAgendamento >= primeiroDiaMesUtc &&
