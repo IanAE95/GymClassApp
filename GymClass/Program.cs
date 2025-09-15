@@ -1,4 +1,3 @@
-
 using GymClass.Models;
 using GymClass.Services;
 using Microsoft.EntityFrameworkCore;
@@ -9,8 +8,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<GymContext>(options =>
-    options.UseSqlite("Data Source=gym.db"));
+    options.UseSqlServer(connectionString, sqlOptions =>
+    {
+        sqlOptions.EnableRetryOnFailure(
+            maxRetryCount: 5,
+            maxRetryDelay: TimeSpan.FromSeconds(30),
+            errorNumbersToAdd: null);
+    }));
 
 builder.Services.AddScoped<IAgendamentoService, AgendamentoService>();
 
@@ -32,12 +38,22 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var context = services.GetRequiredService<GymContext>();
-        context.Database.EnsureCreated();
+        var logger = services.GetRequiredService<ILogger<Program>>();
+
+        logger.LogInformation("Applying pending migrations...");
+        await context.Database.MigrateAsync();
+        logger.LogInformation("Migrations applied successfully.");
+
     }
     catch (Exception ex)
     {
         var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "An error occurred creating the DB.");
+        logger.LogError(ex, "An error occurred during database migration.");
+
+        if (app.Environment.IsProduction())
+        {
+            throw;
+        }
     }
 }
 

@@ -41,7 +41,6 @@ namespace GymClass.Models
                 entity.Property(a => a.DataAgendamento).IsRequired();
                 entity.Property(a => a.Ativo).IsRequired();
 
-                // Relacionamentos
                 entity.HasOne(a => a.Aluno)
                       .WithMany(a => a.Agendamentos)
                       .HasForeignKey(a => a.AlunoId)
