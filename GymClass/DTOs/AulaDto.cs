@@ -31,7 +31,7 @@ namespace GymClass.DTOs
         public string TipoAula { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Data/hora é obrigatória")]
-        [FutureDate(MinutesOffset = 5, ErrorMessage = "Data/hora deve ser futura")]
+        [FutureDate(5)]
         public DateTime DataHora { get; set; }
 
         [Required(ErrorMessage = "Capacidade é obrigatória")]

@@ -16,7 +16,7 @@ namespace GymClass.Validations
             MinutesOffset = minutesOffset;
         }
 
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        protected override ValidationResult IsValid(object? value, ValidationContext validationContext)
         {
             if (value == null)
             {
@@ -28,12 +28,9 @@ namespace GymClass.Validations
                 return new ValidationResult("Valor não é uma data válida");
             }
 
-            var currentTime = DateTime.UtcNow;
-            var minimumDate = currentTime.AddMinutes(MinutesOffset);
-
-            if (dateValue <= minimumDate)
+            if (value is DateTime date && date <= DateTime.UtcNow)
             {
-                return new ValidationResult(FormatErrorMessage(validationContext?.DisplayName));
+                return new ValidationResult(FormatErrorMessage(validationContext.DisplayName));
             }
 
             return ValidationResult.Success;
