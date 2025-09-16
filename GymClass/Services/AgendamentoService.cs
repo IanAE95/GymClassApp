@@ -303,6 +303,7 @@ namespace GymClass.Services
                                a.Ativo &&
                                a.DataAgendamento >= primeiroDiaMesUtc &&
                                a.DataAgendamento < primeiroDiaProximoMesUtc)
+                    .Include(a => a.Aula)
                     .AsNoTracking()
                     .ToListAsync();
 
