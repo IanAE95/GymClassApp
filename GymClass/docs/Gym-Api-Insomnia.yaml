@@ -1,0 +1,365 @@
+type: collection.insomnia.rest/5.0
+name: GymClassApi
+meta:
+  id: wrk_b7fb00feb6ec46cfa00d68054acf12f0
+  created: 1757960912320
+  modified: 1757960912320
+  description: ""
+collection:
+  - name: Alunos
+    meta:
+      id: fld_57e6dd21a4b3466b895623fa8f73a01f
+      created: 1757963451047
+      modified: 1757963512012
+      sortKey: -1757963451047
+      description: ""
+    children:
+      - url: http://localhost:5034/api/alunos
+        name: Listar alunos
+        meta:
+          id: req_e95c19b1051c403dbd79b21b8699ccc0
+          created: 1757960921146
+          modified: 1757963543797
+          isPrivate: false
+          description: ""
+          sortKey: -1757963460759
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.6.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:5034/api/alunos
+        name: Adiciona aluno plano mensal
+        meta:
+          id: req_0729ac144dc44496a4d3914d1d57bde3
+          created: 1757961351088
+          modified: 1757963480022
+          isPrivate: false
+          description: ""
+          sortKey: -1757963460659
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "nome": "João Silva",
+              "tipoPlano": 0
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.6.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:5034/api/alunos
+        name: Adiciona aluno plano trimestral
+        meta:
+          id: req_f7e13eeec8344e6c9a6fbb1f6ba2be95
+          created: 1757961505945
+          modified: 1757963475409
+          isPrivate: false
+          description: ""
+          sortKey: -1757963460509
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "nome": "Maria Santos", 
+              "tipoPlano": 1
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.6.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:5034/api/alunos
+        name: Adiciona aluno plano anual
+        meta:
+          id: req_c3a7ccaa7820491582d351f022124ddd
+          created: 1757961588747
+          modified: 1757963472529
+          isPrivate: false
+          description: ""
+          sortKey: -1757963460559
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "nome": "Pedro Costa",
+              "tipoPlano": 2
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.6.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:5034/api/agendamentos/relatorio/aluno/1
+        name: Relatorio do aluno
+        meta:
+          id: req_27e54efa364b423680df5a1725b984a0
+          created: 1757962070600
+          modified: 1757963686577
+          isPrivate: false
+          description: ""
+          sortKey: -1757963460459
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.6.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Agendamento
+    meta:
+      id: fld_cda432d31a7544d38a0e51a4cb588354
+      created: 1757963522136
+      modified: 1757963522136
+      sortKey: -1757963522136
+      description: ""
+    children:
+      - url: http://localhost:5034/api/agendamentos/1
+        name: Cancela agendamento
+        meta:
+          id: req_6ce56d5a54de46f1b659f121adee1c87
+          created: 1757962249220
+          modified: 1757963535076
+          isPrivate: false
+          description: ""
+          sortKey: -1757963526979
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/11.6.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:5034/api/agendamentos
+        name: Listar agendamentos
+        meta:
+          id: req_028e58cddfd94f2faf83bb1cd6866bdd
+          created: 1757962405286
+          modified: 1757963529547
+          isPrivate: false
+          description: ""
+          sortKey: -1757963527029
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.6.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:5034/api/agendamentos
+        name: Criar agendamento
+        meta:
+          id: req_ebf06c4a34814359ab165c79faef4df8
+          created: 1757962469421
+          modified: 1757964609073
+          isPrivate: false
+          description: ""
+          sortKey: -1757963526929
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "alunoId": 1,
+              "aulaId": 10
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.6.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Aulas
+    meta:
+      id: fld_7b34af20a03646ffa46c53133542508d
+      created: 1757963552217
+      modified: 1757963552217
+      sortKey: -1757963552217
+      description: ""
+    children:
+      - url: http://localhost:5034/api/aulas
+        name: Listar aulas
+        meta:
+          id: req_ad822b5ffc4f48e8aba2edfd8faff9f0
+          created: 1757961802186
+          modified: 1757963567661
+          isPrivate: false
+          description: ""
+          sortKey: -1757963555846
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.6.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:5034/api/aulas
+        name: Criar aula crossfit
+        meta:
+          id: req_a9f73207ffd04802bd1392573c34ae36
+          created: 1757961839503
+          modified: 1757967855959
+          isPrivate: false
+          description: ""
+          sortKey: -1757963555746
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "tipoAula": "Crossfit",
+              "dataHora": "2025-09-20T10:00:00Z",
+              "capacidadeMaxima": 3
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.6.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:5034/api/aulas
+        name: Criar aula pilates
+        meta:
+          id: req_565d532fc5954425b82be60a48867877
+          created: 1757961844655
+          modified: 1757967909759
+          isPrivate: false
+          description: ""
+          sortKey: -1757963555646
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "tipoAula": "Pilates",
+              "dataHora": "2025-11-20T10:00:00Z",
+              "capacidadeMaxima": 5
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.6.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:5034/api/aulas
+        name: Criar aula yoga
+        meta:
+          id: req_0f7e53bd65f649ceb0ec7ef68dabc190
+          created: 1757961846117
+          modified: 1757967900829
+          isPrivate: false
+          description: ""
+          sortKey: -1757963555546
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "tipoAula": "Yoga",
+              "dataHora": "2025-11-20T10:00:00Z",
+              "capacidadeMaxima": 5
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.6.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_b560fcb82dde54e325e1699d67ce9e3524247ce3
+    created: 1757960912326
+    modified: 1757960912326
+environments:
+  name: Base Environment
+  meta:
+    id: env_b560fcb82dde54e325e1699d67ce9e3524247ce3
+    created: 1757960912323
+    modified: 1757961340269
+    isPrivate: false
+  data:
+    "": ""

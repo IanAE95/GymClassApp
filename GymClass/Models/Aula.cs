@@ -3,7 +3,7 @@
     public class Aula
     {
         public int Id { get; set; }
-        public string TipoAula { get; set; } = string.Empty; // Cross, Funcional, Pilates, etc.
+        public string TipoAula { get; set; } = string.Empty;
         public DateTime DataHora { get; set; }
         public int CapacidadeMaxima { get; set; }
         public int VagasOcupadas { get; set; } = 0;
