@@ -54,9 +54,7 @@ namespace GymClass.Services
                 aulaDto.TipoAula, aulaDto.DataHora, aulaDto.CapacidadeMaxima);
 
             if (!Validator.TryValidateObject(aulaDto, new ValidationContext(aulaDto), null))
-            {
-                _logger.LogWarning("Dados da aula inválidos: {TipoAula}, Data: {DataHora}",
-                    aulaDto.TipoAula, aulaDto.DataHora);
+            {     
                 throw new ArgumentException("Dados da aula inválidos");
             }
 
@@ -98,23 +96,17 @@ namespace GymClass.Services
                 var aluno = await _context.Alunos.FindAsync(agendamentoDto.AlunoId);
                 if (aluno == null || !aluno.Ativo)
                 {
-                    _logger.LogWarning("Aluno não encontrado ou inativo. AlunoId: {AlunoId}",
-                        agendamentoDto.AlunoId);
                     throw new InvalidOperationException("Aluno não encontrado ou inativo");
                 }
 
                 var aula = await _context.Aulas.FindAsync(agendamentoDto.AulaId);
                 if (aula == null || !aula.Ativa)
                 {
-                    _logger.LogWarning("Aula não encontrada ou inativa. AulaId: {AulaId}",
-                        agendamentoDto.AulaId);
                     throw new InvalidOperationException("Aula não encontrada ou inativa");
                 }
 
                 if (!aula.TemVagasDisponiveis())
                 {
-                    _logger.LogWarning("Não há vagas disponíveis para a aula. AulaId: {AulaId}, VagasOcupadas: {VagasOcupadas}, Capacidade: {Capacidade}",
-                        aula.Id, aula.VagasOcupadas, aula.CapacidadeMaxima);
                     throw new InvalidOperationException("Não há vagas disponíveis para esta aula");
                 }
 
@@ -123,8 +115,6 @@ namespace GymClass.Services
 
                 if (agendamentosMes.Count >= limite)
                 {
-                    _logger.LogWarning("Aluno atingiu limite de aulas. AlunoId: {AlunoId}, Plano: {Plano}, AgendamentosMes: {Count}, Limite: {Limite}",
-                        aluno.Id, aluno.TipoPlano, agendamentosMes.Count, limite);
                     throw new InvalidOperationException($"Aluno atingiu o limite de {limite} aulas permitidas para o plano {aluno.TipoPlano}");
                 }
 
@@ -133,8 +123,6 @@ namespace GymClass.Services
 
                 if (agendamentoExistente != null)
                 {
-                    _logger.LogWarning("Aluno já está agendado para esta aula. AlunoId: {AlunoId}, AulaId: {AulaId}",
-                        aluno.Id, aula.Id);
                     throw new InvalidOperationException("Aluno já está agendado para esta aula");
                 }
 
@@ -229,7 +217,6 @@ namespace GymClass.Services
                 var aluno = await _context.Alunos.FindAsync(alunoId);
                 if (aluno == null || !aluno.Ativo)
                 {
-                    _logger.LogWarning("Aluno não encontrado ou inativo para relatório. AlunoId: {AlunoId}", alunoId);
                     throw new InvalidOperationException("Aluno não encontrado ou inativo");
                 }
 
